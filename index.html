@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClassPulse - Student Attendance Tracker</title>
+    <link rel="stylesheet" href="Style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <div id="loginPage" class="login-container">
+        <div class="login-box">
+            <div class="login-icon"><i class="fa-solid fa-user-shield"></i></div>
+            <h1>ClassPulse</h1>
+            <p class="login-subtitle">Smart Student Attendance Tracker</p>
+
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <div class="input-box">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" id="username" placeholder="Enter username" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <div class="input-box">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="password" placeholder="Enter password" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    <i class="fa-solid fa-right-to-bracket"></i> Login
+                </button>
+                <p id="loginMessage" class="login-message"></p>
+            </form>
+        </div>
+    </div>
+
+    <div id="dashboard" class="dashboard-container" style="display:none;">
+        <header class="navbar">
+            <div class="logo">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>ClassPulse</span>
+            </div>
+            <div class="nav-right">
+                <span class="teacher-name"><i class="fa-solid fa-user"></i> Teacher</span>
+                <button id="logoutBtn" class="logout-btn">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="welcome-section">
+                <div>
+                    <h1>Attendance Dashboard</h1>
+                    <p>Manage and track student attendance easily.</p>
+                </div>
+                <div class="current-date">
+                    <i class="fa-solid fa-calendar"></i>
+                    <span id="currentDate"></span>
+                </div>
+            </div>
+
+            <section class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+                    <div><h3>Total Students</h3><p id="totalStudents">0</p></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-user-check"></i></div>
+                    <div><h3>Present Today</h3><p id="presentToday">0</p></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-user-xmark"></i></div>
+                    <div><h3>Absent Today</h3><p id="absentToday">0</p></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-chart-line"></i></div>
+                    <div><h3>Average Attendance</h3><p id="averageAttendance">0%</p></div>
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="section-title">
+                    <div>
+                        <h2><i class="fa-solid fa-user-plus"></i> Add Student</h2>
+                        <p>Add a new student to the attendance list.</p>
+                    </div>
+                </div>
+                <form id="studentForm" class="student-form">
+                    <div class="form-group">
+                        <label for="studentName">Student Name</label>
+                        <input type="text" id="studentName" placeholder="Enter student name" required>
+                    </div>
+                    <button type="submit" class="add-btn"><i class="fa-solid fa-plus"></i> Add Student</button>
+                </form>
+            </section>
+
+            <section class="card">
+                <div class="section-title">
+                    <div>
+                        <h2><i class="fa-solid fa-clipboard-check"></i> Mark Attendance</h2>
+                        <p>Select Present or Absent for each student.</p>
+                    </div>
+                    <div class="date-selector">
+                        <label for="attendanceDate">Date:</label>
+                        <input type="date" id="attendanceDate">
+                    </div>
+                </div>
+
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchStudent" placeholder="Search student...">
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Roll No.</th>
+                                <th>Student Name</th>
+                                <th>Status</th>
+                                <th>Attendance %</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="TableBody"></tbody>
+                    </table>
+                </div>
+
+                <div class="attendance-actions">
+                    <button id="saveAttendanceBtn" class="save-btn">
+                        <i class="fa-solid fa-floppy-disk"></i> Save Attendance
+                    </button>
+                    <button id="resetAttendanceBtn" class="reset-btn">
+                        <i class="fa-solid fa-rotate"></i> Reset
+                    </button>
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="section-title">
+                    <div>
+                        <h2><i class="fa-solid fa-clock-rotate-left"></i> Attendance History</h2>
+                        <p>View attendance records date-wise.</p>
+                    </div>
+                </div>
+
+                <div class="history-controls">
+                    <input type="date" id="historyDate">
+                    <button id="showHistoryBtn" class="history-btn">
+                        <i class="fa-solid fa-eye"></i> Show History
+                    </button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Roll No.</th>
+                                <th>Student Name</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="section-title">
+                    <div>
+                        <h2><i class="fa-solid fa-chart-column"></i> Monthly Report</h2>
+                        <p>Generate and download monthly attendance report.</p>
+                    </div>
+                </div>
+
+                <div class="report-controls">
+                    <div class="form-group">
+                        <label for="reportMonth">Select Month</label>
+                        <input type="month" id="reportMonth">
+                    </div>
+                    <button id="downloadPdfBtn" class="pdf-btn">
+                        <i class="fa-solid fa-file-pdf"></i> Download Monthly PDF
+                    </button>
+                    <button id="downloadExcelBtn" class="excel-btn">
+                        <i class="fa-solid fa-file-excel"></i> Download Excel
+                    </button>
+                </div>
+            </section>
+
+            <section class="card alert-card">
+                <div class="section-title">
+                    <div>
+                        <h2><i class="fa-solid fa-triangle-exclamation"></i> Low Attendance Alert</h2>
+                        <p>Students having attendance below 75%.</p>
+                    </div>
+                </div>
+                <div id="lowAttendanceList">
+                    <p class="no-alert">No low attendance students.</p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>© 2026 ClassPulse | Smart Student Attendance Tracker</p>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="Script.JS"></script>
+</body>
+</html>
